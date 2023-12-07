@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html xmlns:th="https://www.thymeleaf.org">
+
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<title>VEHICLE management</title>
+</head>
+
+<body>
+	<div class="vehiclemanagement-wrapper">
+		<!-- ヘッダー -->
+		<div th:replace="~{fragment :: header}"></div>
+
+		<main>
+			<div class="container pt-4 pb-5 vehiclemanagement-container">
+
+				<div class="d-flex justify-content-center">
+					<form method="get" th:action="@{/cars}" class="mb-5 vehiclemanagement-search-form">
+						<div class="input-group">
+							<input type="text" class="form-control" name="keyword" th:value="${keyword}"
+								placeholder="車両名">
+							<button type="submit" class="btn text-white shadow-sm vehiclemanagement-btn">検索</button>
+						</div>
+					</form>
+				</div>
+
+				<div class="row justify-content-center">
+					<div class="col-xl-5 col-lg-6 col-md-8">
+
+						<h2 class="text-center mb-3">所属から探す</h2>
+
+						<table class="table">
+							<tbody>
+								<tr>
+									<th>東大成</th>
+									<td>
+										<a th:href="@{/cars?area=統括事業推進室}" class="me-2">統括事業推進室</a>
+										<a th:href="@{/cars?area=経営管理}" class="me-2">経営管理</a>
+										<a th:href="@{/cars?area=情報システム}" class="me-2">情報システム</a>
+										<a th:href="@{/cars?area=総務}">総務</a>
+									</td>
+								</tr>
+								<tr>
+									<th>大宮</th>
+									<td>
+										<a th:href="@{/cars?area=大宮}" class="me-2">大宮</a>
+										<a th:href="@{/cars?area=岩槻}">岩槻</a>
+									</td>
+								</tr>
+								<tr>
+									<th>浦和</th>
+									<td>
+										<a th:href="@{/cars?area=浦和}" class="me-2">浦和</a>
+										<a th:href="@{/cars?area=給水}">給水</a>
+									</td>
+								</tr>
+								<tr>
+									<th>越谷</th>
+									<td>
+										<a th:href="@{/cars?area=越谷}">越谷</a>
+									</td>
+								</tr>
+								<tr>
+								</tr>
+							</tbody>
+						</table>
+					</div>
+				</div>
+
+				<h2 class="text-center mb-3">車両一覧</h2>
+				<div class="row row-cols-lg-5 row-cols-2 g-3 mb-5">
+					<div class="col" th:each="newCar : ${newCars}">
+						<a th:href="@{/cars/__${newCar.getId()}__}" class="link-dark vehiclemanagement-card-link">
+							<div class="card h-100">
+								
+								<!--
+								<img th:if="${newCar.getImageName()}" th:src="@{/storage/__${newCar.getImageName()}__}"
+									class="card-img-top vehiclemanagement-vertical-card-image" alt="画像">
+
+								<img th:unless="${newCar.getImageName()}" th:src="@{/images/noImage.png}"
+									class="card-img-top vehiclemanagement-vertical-card-image" alt="NO IMAGE">
+								-->
+									
+								<div class="card-body">
+									<h3 class="card-title" th:text="${newCar.getName()}"></h3>
+									<p class="card-text mb-1">
+										<small class="text-muted" th:text="${newCar.getAddress()}"></small>
+									</p>
+
+									<p class="card-text">
+										<span
+											th:text="${#numbers.formatInteger(newCar.getStaring(), 1, 'COMMA') + 'km / 乗車時メーター値'}"></span>
+									</p>
+
+								</div>
+							</div>
+						</a>
+					</div>
+				</div>
+
+
+
+			</div>
+		</main>
+
+		<!-- フッター -->
+		<div th:replace="~{fragment :: footer}"></div>
+	</div>
+
+	<div th:replace="~{fragment :: scripts}"></div>
+</body>
+
+</html>

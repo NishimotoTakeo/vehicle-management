@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+ <html xmlns:th="https://www.thymeleaf.org">
+     <head>
+         <div th:replace="~{fragment :: meta}"></div>    
+              
+         <div th:replace="~{fragment :: styles}"></div>
+         
+         <title>車両詳細</title>       
+     </head>
+     <body>
+         <div class="vehiclemanagement-wrapper">
+             <!-- ヘッダー -->
+             <div th:replace="~{fragment :: header}"></div>
+             
+             <main>
+                 <div class="container pt-4 pb-5 vehiclemanagement-container">
+                     <div class="row justify-content-center">
+                         <div class="col-xl-5 col-lg-6 col-md-8">
+                             <nav class="mb-4" style="--bs-breadcrumb-divider: '>';" aria-label="breadcrumb">
+                                 <ol class="breadcrumb mb-0">                        
+                                     <li class="breadcrumb-item"><a th:href="@{/admin/cars}">車両一覧</a></li>
+                                     <li class="breadcrumb-item active" aria-current="page">車両詳細</li>
+                                 </ol>
+                             </nav> 
+                             
+                             <h1 class="mb-4 text-center" th:text="${car.getName()}"></h1>
+                             
+                             <div class="d-flex justify-content-end align-items-end mb-3">                    
+                                 <div>
+                                      <a th:href="@{/admin/cars/__${car.getId()}__/edit}">編集</a>                                       
+                                 </div>
+                             </div>                                                 
+                             
+                             <div class="mb-3">
+                                 <img th:if="${car.getImageName()}" th:src="@{/storage/__${car.getImageName()}__}" class="w-100" alt="車両画像">
+                                 <img th:unless="${car.getImageName()}" th:src="@{/images/noImage.png}" class="w-100" alt="NO IMAGE">
+                             </div>   
+                             
+                             <div class="container mb-4">
+                                 <div class="row pb-2 mb-2 border-bottom">
+                                     <div class="col-4">
+                                         <span class="fw-bold">ID</span>          
+                                     </div>                                                  
+             
+                                     <div class="col">
+                                         <span th:text="${car.getId()}"></span>
+                                     </div>
+                                 </div>
+             
+                                 <div class="row pb-2 mb-2 border-bottom">
+                                     <div class="col-4">
+                                         <span class="fw-bold">車両名</span>
+                                     </div>
+             
+                                     <div class="col">
+                                         <span th:text="${car.getName()}"></span>
+                                     </div>
+                                 </div>                    
+             
+                                 <div class="row pb-2 mb-2 border-bottom">
+                                     <div class="col-4">
+                                         <span class="fw-bold">説明</span>
+                                     </div>
+             
+                                     <div class="col">
+                                         <span class="vehiclemanagement-pre-wrap" th:text="${car.getDescription()}"></span>
+                                     </div>
+                                 </div>
+             
+                                 <div class="row pb-2 mb-2 border-bottom">
+                                     <div class="col-4">
+                                         <span class="fw-bold">乗車時</span>
+                                     </div>
+             
+                                     <div class="col">
+                                         <span th:text="${#numbers.formatInteger(car.getStaring(), 1, 'COMMA') + 'km'}"></span>
+                                     </div>
+                                 </div> 
+                                 
+                                <div class="row pb-2 mb-2 border-bottom">
+                                     <div class="col-4">
+                                         <span class="fw-bold">降車時</span>
+                                     </div>
+             
+                                     <div class="col">
+                                         <span th:text="${#numbers.formatInteger(car.getGoaling(), 1, 'COMMA') + 'km'}"></span>
+                                     </div>
+                                 </div>                                
+                                 
+                                 <div class="row pb-2 mb-2 border-bottom">
+                                     <div class="col-4">
+                                         <span class="fw-bold">車種</span>
+                                     </div>
+             
+                                     <div class="col">
+                                         <span th:text="${car.getCarModel()}"></span>
+                                     </div>
+                                 </div>   
+                                 
+                                 <div class="row pb-2 mb-2 border-bottom">
+                                     <div class="col-4">
+                                         <span class="fw-bold">所属</span>
+                                     </div>
+             
+                                     <div class="col">
+                                         <span th:text="${car.getAddress()}"></span>
+                                     </div>
+                                 </div>   
+                                 
+                                 <div class="row pb-2 mb-2 border-bottom">
+                                     <div class="col-4">
+                                         <span class="fw-bold">ナンバー</span>
+                                     </div>
+             
+                                     <div class="col">
+                                         <span th:text="${car.getCarNumber()}"></span>
+                                     </div>
+                                 </div>                                
+                             </div>                                                  
+                 
+                         </div>
+                     </div>
+                 </div>             
+             </main>
+             
+             <!-- フッター -->
+             <div th:replace="~{fragment :: footer}"></div>
+         </div>    
+         
+         <!-- Bootstrap -->
+         <div th:replace="~{fragment :: scripts}"></div>         
+     </body>
+ </html>

@@ -1,0 +1,163 @@
+ <!DOCTYPE html>
+ <html xmlns:th="https://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">    
+     <head>
+         <div th:replace="~{fragment :: meta}"></div>   
+              
+         <div th:replace="~{fragment :: styles}"></div>
+           
+         <title>車両一覧</title>   
+     </head>
+     <body>
+         <div class="vehiclemanagement-wrapper">
+             <!-- ヘッダー -->
+             <div th:replace="~{fragment :: header}"></div>
+             
+             <main>
+                 <div class="container vehiclemanagement-container pb-5">
+                     <div class="row justify-content-center">
+                         <nav class="my-3" style="--bs-breadcrumb-divider: '>';" aria-label="breadcrumb">
+                             <ol class="breadcrumb mb-0">                        
+                                 <li class="breadcrumb-item"><a th:href="@{/}">ホーム</a></li>
+                                 <li class="breadcrumb-item active" aria-current="page">車両一覧</li>
+                             </ol>
+                         </nav>         
+             
+                         <div class="col-xl-3 col-lg-4 col-md-12">               
+                             <form method="get" th:action="@{/cars}" class="w-100 mb-3">
+                                 <div class="input-group">
+                                     <input type="text" class="form-control" name="keyword" th:value="${keyword}" placeholder="車両名">
+                                     <button type="submit" class="btn text-white shadow-sm vehiclemanagement-btn">検索</button> 
+                                 </div>               
+                             </form>
+             
+                             <div class="card mb-3">
+                                 <div class="card-header">
+                                     エリアから探す
+                                 </div>
+                                 <div class="card-body">
+                                     <form method="get" th:action="@{/cars}" class="w-100">
+                                         <div class="form-group mb-3">
+                                             <select class="form-control form-select" name="area">  
+                                                 <option value="" hidden>選択してください</option>   
+                                                 <optgroup label="東大成">                                      
+                                                     <option value="統括事業推進室" th:selected="${area == '統括事業推進室'}">統括事業推進室</option>
+                                                     <option value="情報システム" th:selected="${area == '情報システム'}">情報システム</option>
+                                                     <option value="経営管理" th:selected="${area == '経営管理'}">経営管理</option>
+                                                     <option value="総務" th:selected="${area == '総務'}">総務</option>
+                                                 </optgroup>                
+                                                 <optgroup label="大宮">                                      
+                                                     <option value="大宮" th:selected="${area == '大宮'}">大宮</option>
+                                                     <option value="岩槻" th:selected="${area == '岩槻'}">岩槻</option>
+                                                 </optgroup>
+                                                 <optgroup label="浦和">                                      
+                                                     <option value="浦和" th:selected="${area == '浦和'}">浦和</option>
+                                                     <option value="給水" th:selected="${area == '給水'}">給水</option>
+                                                 </optgroup>
+                                                 <optgroup label="越谷">                                      
+                                                     <option value="越谷" th:selected="${area == '越谷'}">越谷</option>
+                                                 </optgroup>
+                                                                                                                                                   
+                                             </select> 
+                                         </div>
+                                         <div class="form-group">
+                                             <button type="submit" class="btn text-white shadow-sm w-100 vehiclemanagement-btn">検索</button>
+                                         </div>                                           
+                                     </form>
+                                 </div>
+                             </div>                
+             
+                             <div class="card mb-3">
+                                 <div class="card-header">
+                                     メーター値から探す
+                                 </div>
+                                 <div class="card-body">
+                                     <form method="get" th:action="@{/cars}" class="w-100">
+                                         <div class="form-group mb-3">    
+                                             <select class="form-control form-select" name="staring">
+                                                 <option value="" hidden>選択してください</option> 
+                                                 <option value="100" th:selected="${staring == 100}">100km以内</option>
+                                                 <option value="1000" th:selected="${staring == 1000}">1,000km以内</option>
+                                                 <option value="10000" th:selected="${staring == 10000}">10,000km以内</option>
+                                                 <option value="100000" th:selected="${staring == 100000}">100,000円以内</option>
+                                                 
+                                             </select>                                                                                
+                                         </div>
+                                         <div class="form-group">
+                                             <button type="submit" class="btn text-white shadow-sm w-100 vehiclemanagement-btn">検索</button>
+                                         </div>                                           
+                                     </form>
+                                 </div>
+                             </div>
+                                                            
+                         </div>
+             
+                         <div class="col">                                                                          
+                             <div class="d-flex justify-content-between flex-wrap">                                
+                                 <p th:if="${carPage.getTotalPages() > 1}" class="fs-5 mb-3" th:text="${'検索結果：' + carPage.getTotalElements() + '件' + '（' + (carPage.getNumber() + 1) + ' / ' + carPage.getTotalPages() + ' ページ）'}"></p> 
+                                 <p th:unless="${carPage.getTotalPages() > 1}" class="fs-5 mb-3" th:text="${'検索結果：' + carPage.getTotalElements() + '件'}"></p>                                 
+                             </div>   
+                                                                         
+                             <div class="mb-3" th:each="car : ${carPage}">
+                                 <a th:href="@{/cars/__${car.getId()}__}" class="link-dark vehiclemanagement-card-link">
+                                     <div class="card h-100">   
+                                         <div class="row g-0">
+                                             <div class="col-md-4">                                                                                
+                                                 <img th:if="${car.getImageName()}" th:src="@{/storage/__${car.getImageName()}__}" class="card-img-top vehiclemanagement-horizontal-card-image" alt="画像">                                                     
+                                                 <img th:unless="${car.getImageName()}" th:src="@{/images/noImage.png}" class="card-img-top vehiclemanagement-horizontal-card-image" alt="NO IMAGE">                                                    
+                                             </div> 
+                                             <div class="col-md-8">                                                                                                                        
+                                                 <div class="card-body">                                    
+                                                     <h3 class="card-title mb-3" th:text="${car.getName()}"></h3>                                            
+  
+                                                     <hr class="mb-3">
+                                                     
+                                                     <p class="card-text mb-2">
+                                                         <span th:text="${car.getDescription()}"></span>
+                                                     </p>                                                    
+                                                     
+                                                     <p class="card-text mb-2">
+                                                         <small class="text-muted" th:text="${'車種' + car.getCarModel()}"></small>
+                                                         <small class="text-muted" th:text="${car.getAddress()}"></small>                                                      
+                                                     </p>   
+                                                                                                                                                                                                                                    
+                                                     <p class="card-text">
+                                                         <span th:text="${#numbers.formatInteger(car.getStaring(), 1, 'COMMA') + 'km'}"></span>
+                                                     </p>                                    
+                                                 </div>
+                                             </div>
+                                         </div>
+                                     </div>    
+                                 </a>            
+                             </div>                                                                                       
+             
+                             <!-- ページネーション -->
+                             <div th:if="${carPage.getTotalPages() > 1}" class="d-flex justify-content-center">
+                                 <nav aria-label="車両一覧ページ">
+                                     <ul class="pagination">
+                                         <li class="page-item">
+                                             <span th:if="${carPage.isFirst()}" class="page-link disabled">前</span>
+                                             <a th:unless="${carPage.isFirst()}" th:href="@{/cars(page = ${carPage.getNumber() - 1}, keyword = ${keyword}, area = ${area}, staring = ${staring})}" class="page-link vehiclemanagement-page-link">前</a>
+                                         </li>
+                                         <li th:each="i : ${#numbers.sequence(0, carPage.getTotalPages() - 1)}" class="page-item">
+                                             <span th:if="${i == carPage.getNumber()}" class="page-link active vehiclemanagement-active" th:text="${i + 1}"></span>
+                                             <a th:unless="${i == carPage.getNumber()}" th:href="@{/cars(page = ${i}, keyword = ${keyword}, area = ${area}, staring = ${staring})}" class="page-link vehiclemanagement-page-link" th:text="${i + 1}"></a>
+                                         </li>
+                                         <li class="page-item">                        
+                                             <span th:if="${carPage.isLast()}" class="page-link disabled">次</span>
+                                             <a th:unless="${carPage.isLast()}" th:href="@{/cars(page = ${carPage.getNumber() + 1}, keyword = ${keyword}, area = ${area}, staring = ${staring})}" class="page-link vehiclemanagement-page-link">次</a>
+                                         </li>
+                                     </ul>
+                                 </nav> 
+                             </div>                                      
+                         </div>
+                     </div>
+                 </div>  
+             </main>
+             
+             <!-- フッター -->
+             <div th:replace="~{fragment :: footer}"></div>
+         </div>    
+         
+         <div th:replace="~{fragment :: scripts}"></div>  
+   </body>
+ </html>

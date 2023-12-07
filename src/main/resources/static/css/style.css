@@ -1,0 +1,133 @@
+html {
+   font-size: 14px;
+ }
+ 
+ body {
+   font-family: 'Noto Sans JP', sans-serif;  
+ }
+ 
+ h1 {
+   font-size: 1.5rem;
+ }
+ 
+ h2 {
+   font-size: 1.475rem;
+ }
+ 
+ h3 {
+   font-size: 1.25rem;
+ }
+ 
+ a {
+   color: #5196a6;
+   text-decoration: none !important;
+ }
+ 
+ a:hover {
+     color: #407784;
+ }
+ 
+ footer {
+   width: 100%;
+   height: 60px;
+   position: absolute;
+   bottom: 0;    
+   background-color: #f2f0eb;
+ }
+ 
+ .vehiclemanagement-wrapper {
+   min-height: 100vh;
+   position: relative;
+   padding-bottom: 60px;
+   box-sizing: border-box;
+ }
+ 
+ .vehiclemanagement-navbar {
+   min-height: 60px;
+ }
+ 
+ .vehiclemanagement-logo {
+   height: 30px;  
+ }
+ 
+ .vehiclemanagement-btn {
+   background-color: #5196a6 !important;   
+   transition: 0.1s;
+ }
+ 
+ .vehiclemanagement-btn:hover {
+   opacity: 0.8;   
+ }
+ 
+ .vehiclemanagement-page-link {
+   color: #5196a6;
+ }
+ 
+ .vehiclemanagement-page-link:hover {
+   color: #407784;
+ }
+ 
+ .vehiclemanagement-active {
+   background-color: #5196a6 !important;
+   border-color: #5196a6 !important;
+ }
+ 
+  .vehiclemanagement-pre-wrap {
+   /* 改行文字で行を折り返す */
+   white-space: pre-wrap;
+ }
+ 
+  .vehiclemanagement-link-danger {
+     color: #f2594b;
+ }
+ 
+ .vehiclemanagement-link-danger:hover {
+     color: #a63c3c;
+ }
+ 
+ .vehiclemanagement-btn-danger {
+     background-color: #f2594b !important;
+     transition: 0.1s;
+ }
+ 
+ .vehiclemanagement-btn-danger:hover {
+   opacity: 0.8;   
+ }
+ 
+ .vehiclemanagement-dropdown-item:active {
+  background-color: #5196a6;
+ }
+
+ .vehiclemanagement-card-link {
+   transition: 0.3s;
+ }
+ 
+ .vehiclemanagement-card-link:hover {
+   opacity: 0.7;
+ }
+ 
+ .vehiclemanagement-horizontal-card-image {
+   width: 100%;
+   height: 240px;
+   object-fit: cover;
+ }
+ 
+ .vehiclemanagement-sort-box {
+  width: 150px;
+ }
+ 
+ .vehiclemanagement-vertical-card-image {
+   width: 100%;
+   height: 150px;
+   object-fit: cover;
+ }
+ 
+ .vehiclemanagement-search-form {
+     max-width: 300px;
+ }
+ 
+ @media screen and (min-width: 1400px) {
+   .vehiclemanagement-container {
+     max-width: 1200px;
+   }
+ }
