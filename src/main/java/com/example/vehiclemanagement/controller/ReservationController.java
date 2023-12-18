@@ -2,6 +2,7 @@ package com.example.vehiclemanagement.controller;
 
 import java.time.LocalDate;
 
+//import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort.Direction;
 import org.springframework.data.web.PageableDefault;
@@ -24,12 +25,12 @@ import com.example.vehiclemanagement.service.ReservationService;
 
 @Controller
 public class ReservationController {
-// private final ReservationRepository reservationRepository;    
+ //private final ReservationRepository reservationRepository;    
  private final CarRepository carRepository;
  private final ReservationService reservationService; 
      
  public ReservationController(ReservationRepository reservationRepository, CarRepository carRepository, ReservationService reservationService) {          
-  //       this.reservationRepository = reservationRepository;  
+        // this.reservationRepository = reservationRepository;  
          this.carRepository = carRepository;
          this.reservationService = reservationService;
      }    
@@ -37,7 +38,10 @@ public class ReservationController {
      @GetMapping("/reservations")
      public String index(@PageableDefault(page = 0, size = 10, sort = "id", direction = Direction.ASC) Pageable pageable, Model model) {
               
-         
+    	// Page<Reservation> reservationPage = reservationRepository.findByUserOrderByCreatedAtDesc(pageable);
+    	 
+    	// model.addAttribute("reservationPage", reservationPage);
+    	 
          return "reservations/index";
      }
      
@@ -49,8 +53,8 @@ public class ReservationController {
                          Model model)
      {   
          Car car = carRepository.getReferenceById(id);
-    //     Integer staring = reservationInputForm.getStaring();   
-    //     Integer goaling = car.getGoaling();
+        // Integer staring = reservationInputForm.getStaring();   
+        // Integer goaling = car.getGoaling();
          
         
          
@@ -88,8 +92,8 @@ public class ReservationController {
      
      @PostMapping("/cars/{id}/reservations/create")
      public String create(@ModelAttribute ReservationRegisterForm reservationRegisterForm) {                
-         reservationService.create(reservationRegisterForm);
-         
+    	 reservationService.create(reservationRegisterForm);
+             	 
          return "redirect:/reservations?reserved";
      }
      

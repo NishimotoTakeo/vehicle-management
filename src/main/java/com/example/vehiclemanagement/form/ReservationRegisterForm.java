@@ -7,6 +7,8 @@ import lombok.Data;
 @AllArgsConstructor
 public class ReservationRegisterForm {
 	
+	 //private Integer id;
+	
 	 private Integer carId;
       
 	 private String checkinDate;    

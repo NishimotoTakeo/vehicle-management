@@ -29,6 +29,7 @@
                                          
                              <form method="post" th:action="@{/cars/__${car.getId()}__/reservations/create}" th:object="${reservationRegisterForm}">
                                  
+                                 <input type="hidden" th:field="*{carId}">
                                  <input type="hidden" th:field="*{checkinDate}">
                                  <input type="hidden" th:field="*{checkoutDate}">
                                  <input type="hidden" th:field="*{staring}">

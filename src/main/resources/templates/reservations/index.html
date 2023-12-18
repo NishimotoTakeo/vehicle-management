@@ -44,6 +44,7 @@
                                          <td>
                                              <a th:href="@{/cars/__${reservation.getCar().getId()}__}" th:text="${reservation.getCar().getName()}"></a>
                                          </td>
+                                         
                                          <td th:text="${reservation.getCheckinDate()}"></td>
                                          <td th:text="${reservation.getCheckoutDate()}"></td>
                                          <td th:text="${reservation.getStaring + 'km'}"></td>
